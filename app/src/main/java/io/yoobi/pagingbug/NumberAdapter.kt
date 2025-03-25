@@ -8,14 +8,17 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-class NumberAdapter : PagingDataAdapter<Int, LaunchViewHolder>(LaunchDiffItemCallback) {
+class NumberAdapter(private val onClick: (Int) -> Unit) : PagingDataAdapter<Int, LaunchViewHolder>(LaunchDiffItemCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return LaunchViewHolder(layoutInflater.inflate(R.layout.item_paging, parent, false))
     }
 
     override fun onBindViewHolder(holder: LaunchViewHolder, position: Int) {
-        getItem(position)?.let(holder::bind)
+        getItem(position)?.let { item ->
+            holder.bind(item)
+            holder.itemView.setOnClickListener { onClick(item) }
+        }
     }
 }
 

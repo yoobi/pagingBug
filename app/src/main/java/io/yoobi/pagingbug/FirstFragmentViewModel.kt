@@ -6,7 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 
-class MainViewModel: ViewModel() {
+class FirstFragmentViewModel: ViewModel() {
     val numbers: Flow<PagingData<Int>> = Pager(
         config = PagingConfig(pageSize = 50, enablePlaceholders = false),
         pagingSourceFactory = { RandomNumberPagingSource() }

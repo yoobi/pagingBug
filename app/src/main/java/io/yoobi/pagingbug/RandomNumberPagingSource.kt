@@ -14,8 +14,6 @@ class RandomNumberPagingSource : PagingSource<Int, Int>() {
 
         return LoadResult.Page(
             data = data,
-//            prevKey = null,
-//            nextKey = null
             prevKey = if (page == 0) null else page - 1,  // No previous page if first page
             nextKey = page + 1  // Always increment the page
         )
