@@ -5,13 +5,19 @@ import androidx.paging.PagingState
 
 class RandomNumberPagingSource : PagingSource<Int, Int>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Int> {
-//        val page = params.key ?: 0
-        val data = List(50) { it }.shuffled()
+        val page = params.key ?: 0  // Start from page 0
+        val pageSize = 50           // Each page contains 50 numbers
+
+        val start = page * pageSize  // Calculate start number
+        val end = start + pageSize   // Calculate end number
+        val data = (start until end).toList()  // Generate sequential numbers
 
         return LoadResult.Page(
             data = data,
-            prevKey = null,
-            nextKey = null
+//            prevKey = null,
+//            nextKey = null
+            prevKey = if (page == 0) null else page - 1,  // No previous page if first page
+            nextKey = page + 1  // Always increment the page
         )
     }
 
